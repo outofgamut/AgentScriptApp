@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AgentScriptApp.Repository
 {
-    public interface ICampaignsRepository
+    public interface ICampaignRepository
     {
         void Add(Campaign item);
         IEnumerable<Campaign> GetAll();
