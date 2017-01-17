@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AgentScriptApp.Data;
 using AgentScriptApp.Models;
+using AgentScriptApp.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 
 namespace AgentScriptApp
 {
@@ -32,10 +34,16 @@ namespace AgentScriptApp
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver()); ;
 
             services.AddDbContext<CallCenterContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddSingleton<ICampaignRepository, CampaignRepository>();
+ 
+            //using Dependency Injection
+            services.AddSingleton<ICampaignRepository, CampaignRepository>();
 
         }
 

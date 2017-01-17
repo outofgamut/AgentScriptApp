@@ -7,15 +7,19 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { DialogueComponent } from './components/dialogue/dialogue.component';
+import { CampaignListComponent } from './components/app/campaign-list.component';
+import { CampaignService } from './components/app/campaign.service';
 
 @NgModule({
     bootstrap: [ AppComponent ],
+    providers: [CampaignService],
     declarations: [
         AppComponent,
         NavMenuComponent,
         CounterComponent,
         DialogueComponent,
         FetchDataComponent,
+        CampaignListComponent,
         HomeComponent
     ],
     imports: [
@@ -25,7 +29,7 @@ import { DialogueComponent } from './components/dialogue/dialogue.component';
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'dialogue', component: DialogueComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
+            { path: 'fetch-data', component: CampaignListComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]
