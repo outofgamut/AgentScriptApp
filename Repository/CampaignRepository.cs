@@ -39,9 +39,11 @@ namespace AgentScriptApp.Repository
         public void Remove(string Id)
         {
             // ToDo - Integrate with EF Core
-            var itemToRemove = CampaignList.SingleOrDefault(r => r.ID.ToString() == Id);
-            if (itemToRemove != null)
-                CampaignList.Remove(itemToRemove);
+            var itemToRemove = _context.Campaigns.SingleOrDefault(r => r.ID.ToString() == Id);
+            if (itemToRemove != null){
+                _context.Campaigns.Remove(itemToRemove);
+                _context.SaveChanges();
+            }
         }
 
         public void Update(Campaign item)

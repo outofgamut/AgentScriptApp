@@ -28,10 +28,11 @@ export class CampaignService {
     }    
 
     // Delete a comment
-    removeCampaign (id:string): Observable<Campaign> {
+    removeCampaign (id:string): Promise<Campaign> {
         alert('remove');
-        return this._http.delete(`/api/campaign/${id}`) // ...using put request
-            .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
+        return this._http.delete(`/api/campaign/` + id) // ...using put request
+            .toPromise()
+            .then(response => this.extractCampaign(response))
             .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     } 
 
