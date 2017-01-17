@@ -1,11 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { Campaign } from './campaign';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class CampaignService {
     constructor(private _http: Http) { }
+
+ // Add a new comment
+    addCampaign(body: Object): Promise<Campaign> {
+        let bodyString = JSON.stringify(body); // Stringify payload
+        let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options       = new RequestOptions({ headers: headers }); // Create a request option
+
+        return this._http.post('/api/campaign', body, options) // ...using post request
+            .toPromise()
+            .then(response => this.extractCampaign(response))
+            .catch(this.handleErrorPromise)
+    }   
 
     getCampaigns(): Promise<Campaign[]> {
         return this._http.get('/api/campaign')
@@ -15,6 +28,11 @@ export class CampaignService {
     }    
 
     protected extractArray(res: Response, showprogress: boolean = true) {
+        let data = res.json();
+        return data || [];
+    }
+
+    protected extractCampaign(res: Response, showprogress: boolean = true) {
         let data = res.json();
         return data || [];
     }
@@ -38,8 +56,4 @@ export class CampaignService {
         console.error(errMsg);
         return Promise.reject(errMsg);
     }
-}
-export interface Campaign {
-    id: number;
-    name: string;
 }

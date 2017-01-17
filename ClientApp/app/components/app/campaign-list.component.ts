@@ -11,12 +11,23 @@ import { CampaignService } from './campaign.service';
 })
 export class CampaignListComponent implements OnInit {
     public campaigns: Campaign[];
+    newCampaign: Campaign = new Campaign();
 
     constructor(private campaignService: CampaignService) {
-        
+
     }
 
     ngOnInit(): void {
         this.campaignService.getCampaigns().then(heroes => this.campaigns = heroes);
+    }
+
+    deleteCampaign(): void {
+        alert("delete");
+    }
+
+    addCampaign(): void {
+        alert("create");
+            this.campaignService.addCampaign(this.newCampaign);
+    this.newCampaign = new Campaign();
     }
 }
