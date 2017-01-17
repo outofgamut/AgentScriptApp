@@ -1,6 +1,7 @@
-<h1>Weather forecast</h1>
+<h1>Admin</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<h3>Campaigns</h3>
+<p>Here is the list of active campaigns that can be mapped to phone numbers.</p>
 
 <p *ngIf="!campaigns"><em>Loading...</em></p>
 
@@ -9,12 +10,14 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let campaign of campaigns">
             <td>{{ campaign.id }}</td>
             <td>{{ campaign.name }}</td>
+            <button class="btn btn-danger" (click)="deleteCampaign(campaign.id)"><span class="glyphicon glyphicon-remove"></span></button>
         </tr>
     </tbody>
 </table>

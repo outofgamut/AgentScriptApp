@@ -21,13 +21,14 @@ export class CampaignListComponent implements OnInit {
         this.campaignService.getCampaigns().then(heroes => this.campaigns = heroes);
     }
 
-    deleteCampaign(): void {
-        alert("delete");
+    deleteCampaign(id: string): void {
+        this.campaignService.removeCampaign(id);
     }
 
     addCampaign(): void {
-        alert("create");
-            this.campaignService.addCampaign(this.newCampaign);
-    this.newCampaign = new Campaign();
+        this.campaignService.addCampaign(this.newCampaign).then(campaign => {
+            this.campaigns.push(campaign);
+        });
+        this.newCampaign = new Campaign();
     }
 }

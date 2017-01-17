@@ -1,5 +1,5 @@
 export class Campaign {
-  id: number;
+  id: string;
   name: string;
 
   constructor(values: Object = {}) {

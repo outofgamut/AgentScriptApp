@@ -27,6 +27,14 @@ export class CampaignService {
             .catch(this.handleErrorPromise);
     }    
 
+    // Delete a comment
+    removeCampaign (id:string): Observable<Campaign> {
+        alert('remove');
+        return this._http.delete(`/api/campaign/${id}`) // ...using put request
+            .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
+            .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
+    } 
+
     protected extractArray(res: Response, showprogress: boolean = true) {
         let data = res.json();
         return data || [];
